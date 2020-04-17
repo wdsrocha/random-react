@@ -16,7 +16,10 @@ function getWinner(squares) {
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
-            return squares[a];
+            return {
+                winner: squares[a],
+                line: lines[i],
+            };
         }
     };
     return null;
@@ -24,7 +27,14 @@ function getWinner(squares) {
 
 function Square(props) {
     return (
-        <button className="square" onClick={props.onClick}>
+        <button
+            className="square"
+            onClick={props.onClick}
+            style={{
+                color: props.highlight ? 'red' : 'black',
+                fontWeight: props.highlight ? 'bold' : 'normal'
+            }}
+        >
             {props.value}
         </button>
     );
@@ -35,6 +45,7 @@ class Board extends React.Component {
         return (
             <Square
                 value={this.props.squares[i]}
+                highlight={this.props.toHighlight?.includes(i)}
                 onClick={() => this.props.onClick(i)}
             />
         );
@@ -44,9 +55,7 @@ class Board extends React.Component {
         const range = n => [...Array(n).keys()];
         const board = range(3).map(i => (
             <div className="board-row">
-                {
-                    range(3).map(j => this.renderSquare(3 * i + j))
-                }
+                {range(3).map(j => this.renderSquare(3 * i + j))}
             </div>
         ));
         return (
@@ -104,7 +113,8 @@ class Game extends React.Component {
     render() {
         const history = this.state.history;
         const current = history[this.state.turnNumber];
-        const winner = getWinner(current.squares);
+        const winner = getWinner(current.squares)?.winner;
+        const winnerLine = getWinner(current.squares)?.line;
 
         const status = winner ?
             `Winner: ${winner}` :
@@ -141,6 +151,7 @@ class Game extends React.Component {
             <div className="game">
                 <div className="game-board">
                     <Board
+                        toHighlight={winnerLine}
                         squares={current.squares}
                         onClick={(i) => this.handleClick(i)}
                     />
