@@ -68,6 +68,7 @@ class Game extends React.Component {
             }],
             turnNumber: 0,
             isXTurn: true,
+            isHistoryAscending: true,
         }
     }
 
@@ -109,7 +110,7 @@ class Game extends React.Component {
             `Winner: ${winner}` :
             `Next player: ${this.currentSymbol()}`;
 
-        const moves = history.map((turn, move) => {
+        let moves = history.map((turn, move) => {
             let description;
             if (move) {
                 const row = 1 + Math.floor(turn.location / 3);
@@ -132,6 +133,10 @@ class Game extends React.Component {
             )
         });
 
+        if (this.state.isHistoryAscending === false) {
+            moves = moves.reverse();
+        }
+
         return (
             <div className="game">
                 <div className="game-board">
@@ -142,10 +147,17 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
+                    <button onClick={() => this.reverseHistoryOrder()}>Invert order</button>
                     <ol>{moves}</ol>
                 </div>
             </div>
         );
+    }
+
+    reverseHistoryOrder() {
+        this.setState({
+            isHistoryAscending: !this.state.isHistoryAscending
+        });
     }
 }
 
