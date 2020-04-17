@@ -125,6 +125,10 @@ class Game extends React.Component {
                 description = 'Go to game start';
             }
 
+            if (move === this.state.turnNumber) {
+                description = <b>{description}</b>
+            }
+
             return (
                 <li key={move}>
                     <button onClick={() => this.jumpTo(move)}>
