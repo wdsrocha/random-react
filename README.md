@@ -1,3 +1,7 @@
+# Tic-tac-toe - React
+
+Just the [React main tutorial](https://pt-br.reactjs.org/tutorial/tutorial.html).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
