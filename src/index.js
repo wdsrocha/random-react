@@ -70,6 +70,7 @@ class Game extends React.Component {
         this.state = {
             history: [{
                 squares: Array(9).fill(null),
+                location: null,
             }],
             turnNumber: 0,
             isXTurn: true,
@@ -96,7 +97,10 @@ class Game extends React.Component {
         }
         squares[i] = this.currentSymbol();
         this.setState({
-            history: history.concat([{ squares: squares }]),
+            history: history.concat([{
+                squares: squares,
+                location: i,
+            }]),
             turnNumber: history.length,
             isXTurn: !this.state.isXTurn,
         });
@@ -112,9 +116,15 @@ class Game extends React.Component {
             `Next player: ${this.currentSymbol()}`;
 
         const moves = history.map((turn, move) => {
-            const description = move ?
-                `Go to move #${move}` :
-                'Go to game start';
+            let description;
+            if (move) {
+                const row = 1 + Math.floor(turn.location / 3);
+                const col = 1 + (turn.location % 3);
+                description = `Go to move #${move}. Location: (${row}, ${col})`;
+            } else {
+                description = 'Go to game start';
+            }
+
             return (
                 <li key={move}>
                     <button onClick={() => this.jumpTo(move)}>
