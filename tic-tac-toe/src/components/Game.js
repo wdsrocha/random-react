@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import './index.css'
+import Board from './Board';
 
+// TODO: Move this inside Game component
 function getWinner(squares) {
     const lines = [
         [0, 1, 2],
@@ -25,49 +25,6 @@ function getWinner(squares) {
     return null;
 }
 
-function Square(props) {
-    return (
-        <button
-            className="square"
-            onClick={props.onClick}
-            style={{
-                color: props.highlight ? 'red' : 'black',
-                fontWeight: props.highlight ? 'bold' : 'normal'
-            }}
-        >
-            {props.value}
-        </button>
-    );
-}
-
-class Board extends React.Component {
-    renderSquare(i) {
-        return (
-            <Square
-                key={i}
-                value={this.props.squares[i]}
-                highlight={this.props.toHighlight?.includes(i)}
-                onClick={() => this.props.onClick(i)}
-            />
-        );
-    }
-
-    render() {
-        const range = n => [...Array(n).keys()];
-        const board = range(3).map(i => (
-            <div className="board-row" key={i}>
-                {range(3).map(j => this.renderSquare(3 * i + j))}
-            </div>
-        ));
-        return (
-            <div>
-                <div className="status">{this.props.status}</div>
-                {board}
-            </div>
-        );
-    }
-}
-
 class Game extends React.Component {
     constructor(props) {
         super(props);
@@ -82,6 +39,10 @@ class Game extends React.Component {
         }
 
         this.handleClick = this.handleClick.bind(this);
+    }
+
+    getWinner(squares) {
+
     }
 
     currentSymbol() {
@@ -179,9 +140,4 @@ class Game extends React.Component {
     }
 }
 
-// ========================================
-
-ReactDOM.render(
-    <Game />,
-    document.getElementById('root')
-);
+export default Game;
