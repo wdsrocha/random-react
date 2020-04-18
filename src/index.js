@@ -44,6 +44,7 @@ class Board extends React.Component {
     renderSquare(i) {
         return (
             <Square
+                key={i}
                 value={this.props.squares[i]}
                 highlight={this.props.toHighlight?.includes(i)}
                 onClick={() => this.props.onClick(i)}
@@ -54,7 +55,7 @@ class Board extends React.Component {
     render() {
         const range = n => [...Array(n).keys()];
         const board = range(3).map(i => (
-            <div className="board-row">
+            <div className="board-row" key={i}>
                 {range(3).map(j => this.renderSquare(3 * i + j))}
             </div>
         ));
@@ -79,6 +80,8 @@ class Game extends React.Component {
             isXTurn: true,
             isHistoryAscending: true,
         }
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     currentSymbol() {
@@ -157,7 +160,7 @@ class Game extends React.Component {
                     <Board
                         toHighlight={winnerLine}
                         squares={current.squares}
-                        onClick={(i) => this.handleClick(i)}
+                        onClick={this.handleClick}
                     />
                 </div>
                 <div className="game-info">
