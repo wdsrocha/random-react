@@ -115,10 +115,14 @@ class Game extends React.Component {
         const current = history[this.state.turnNumber];
         const winner = getWinner(current.squares)?.winner;
         const winnerLine = getWinner(current.squares)?.line;
+        const isGameOver = current.squares.every(k => k != null);
 
-        const status = winner ?
-            `Winner: ${winner}` :
-            `Next player: ${this.currentSymbol()}`;
+        let status = `Next player: ${this.currentSymbol()}`;
+        if (winner) {
+            status = `Winner: ${winner}`;
+        } else if (isGameOver) {
+            status = 'It\'s a draw!';
+        }
 
         let moves = history.map((turn, move) => {
             let description;
