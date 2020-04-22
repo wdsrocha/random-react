@@ -1,13 +1,13 @@
 import React from 'react';
-import './App.css';
 
 type Todo = Readonly<{
-    id: number
-    description: string
-    done: boolean
+    id: number;
+    description: string;
+    done: boolean;
 }>
 
 function App() {
+    const [newTodoDescription, setNewTodoDescription] = React.useState<string>('');
     const [todos, setTodos] = React.useState<Todo[]>([
         {
             id: 1,
@@ -22,7 +22,6 @@ function App() {
     ]);
 
     function toggleTodo(id: number) {
-        console.log(id);
         setTodos(todos.map(todo => todo.id !== id ? todo : {
             id: id,
             description: todo.description,
@@ -32,6 +31,25 @@ function App() {
 
     function deleteTodo(id: number): void {
         setTodos(todos.filter(todo => todo.id !== id));
+    }
+
+    function createTodo(description: string) {
+        const id = 1 + Math.max(...todos.map(todo => todo.id));
+        setTodos(todos.concat({ id: id, description: description, done: false }));
+    }
+
+    function handleNewTodoSubmit(event: React.SyntheticEvent) {
+        event.preventDefault();
+        if (!newTodoDescription.length) {
+            return;
+        }
+        createTodo(newTodoDescription);
+        setNewTodoDescription('');
+    }
+
+    function handleNewTodoChange(event: React.ChangeEvent<HTMLInputElement>) {
+        event.preventDefault();
+        setNewTodoDescription(event.currentTarget.value);
     }
 
     return (
@@ -51,10 +69,10 @@ function App() {
                     </div>
                 ))}
             </div>
-            <div className="newTask">
-                <input type="text" />
-                <button className="create">+</button>
-            </div>
+            <form onSubmit={handleNewTodoSubmit}>
+                <input type="text" value={newTodoDescription} onChange={handleNewTodoChange} />
+                <input type="submit" value="+" />
+            </form>
         </div>
     )
 }

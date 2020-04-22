@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+
+* {
+  box-sizing: border-box;
+  /* outline: 1px dashed red;
+  outline-offset: -1px; */
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(#E9F2F5, #CEE0E7);
+}
+
+.todoComponent {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto';
+  width: 20rem;
+  box-shadow: 0 0 5rem grey;
+  border-radius: .25rem;
+  overflow: hidden;
+}
