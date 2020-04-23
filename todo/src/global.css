@@ -2,8 +2,8 @@
 
 * {
   box-sizing: border-box;
-  outline: 1px dashed red;
-  outline-offset: -1px;
+  /* outline: 1px dashed red;
+  outline-offset: -1px; */
 }
 
 html, body {
@@ -16,6 +16,10 @@ body {
   justify-content: center;
   overflow: hidden;
   background: linear-gradient(#E9F2F5, #CEE0E7);
+}
+
+button {
+    cursor: pointer;
 }
 
 .card {
@@ -37,38 +41,58 @@ body {
 }
 
 .todoList {
-    margin-bottom: .5rem;
     border-radius: .25rem;
 }
 
 .todo {
     display: flex;
+    align-items: center;
+    padding: .3rem;
+    background-color: #f9f9f9;
+}
+
+.todo:hover {
+    filter: brightness(95%);
+}
+
+.todo:first-child {
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+
+.todo:last-child {
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+}
+
+.todo:nth-child(even){
+    background-color: #eee;
 }
 
 .description {
     width: 100%;
+    margin-left: .5rem;
 }
 
-.card .noTodo {
+.noTodo {
     font-size: 1rem;
     font-weight: 400;
-}
-
-.card .todoList .todo .delete {
-    font-weight: 700;
-    font-size: 1rem;
-    border: 0 solid white;
+    margin-left: .5rem;
 }
 
 form {
     display: flex;
+    /* align-items: center; */
+    margin-top: 1.25rem;
 }
 
 .newTodoInputText {
     width: 100%;
+    font-size: .85rem;
+    font-weight: 400;
     border-radius: .25rem;
     resize: none;
-    border: .2rem solid #ccc;
+    border: .2rem solid #ddd;
     padding: .4rem .6rem;
 }
 
@@ -76,4 +100,11 @@ form {
     font-weight: 700;
     font-size: 1rem;
     border: 0 solid white;
+}
+
+.newTodoButton {
+    border: none;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
 }

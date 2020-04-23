@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiTrash2 as Trash, FiPlus as Plus } from 'react-icons/fi';
 
 type Todo = Readonly<{
   id: string;
@@ -30,7 +31,7 @@ function App() {
   function toggleTodo(id: string) {
     setTodos(
       todos.map((todo) => {
-        if (todo.id === id) {
+        if (todo.id !== id) {
           return todo;
         } else {
           return {
@@ -83,9 +84,17 @@ function App() {
               onChange={() => toggleTodo(todo.id)}
             />
             <span className="description">{todo.description}</span>
-            <button className="delete" onClick={() => deleteTodo(todo.id)}>
-              x
+            <button
+              className="newTodoButton"
+              onClick={() => deleteTodo(todo.id)}
+            >
+              <Trash size={26} color="#F71963" />
             </button>
+            {/* <Trash
+              size={26}
+              color="#F71963"
+              onClick={() => deleteTodo(todo.id)}
+            /> */}
           </div>
         ))}
       </div>
@@ -97,7 +106,9 @@ function App() {
           onChange={handleNewTodoChange}
           placeholder="New task"
         />
-        <input className="newTodoInputSubmit" type="submit" value="+" />
+        <button className="newTodoButton" onClick={handleNewTodoSubmit}>
+          <Plus size={26} color="#F71963" />
+        </button>
       </form>
     </div>
   );
