@@ -2,8 +2,8 @@
 
 * {
   box-sizing: border-box;
-  /* outline: 1px dashed red;
-  outline-offset: -1px; */
+  outline: 1px dashed red;
+  outline-offset: -1px;
 }
 
 html, body {
@@ -18,12 +18,62 @@ body {
   background: linear-gradient(#E9F2F5, #CEE0E7);
 }
 
-.todoComponent {
+.card {
   display: flex;
+  background-color: white;
   flex-direction: column;
   font-family: 'Roboto';
-  width: 20rem;
+  width: 25rem;
   box-shadow: 0 0 5rem grey;
-  border-radius: .25rem;
+  border-radius: .5rem;
   overflow: hidden;
+  padding: 1rem 1rem 2rem;
+}
+
+.title {
+    color: #F71963;
+    font-family: 'Roboto';
+    font-weight: 700;
+}
+
+.todoList {
+    margin-bottom: .5rem;
+    border-radius: .25rem;
+}
+
+.todo {
+    display: flex;
+}
+
+.description {
+    width: 100%;
+}
+
+.card .noTodo {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.card .todoList .todo .delete {
+    font-weight: 700;
+    font-size: 1rem;
+    border: 0 solid white;
+}
+
+form {
+    display: flex;
+}
+
+.newTodoInputText {
+    width: 100%;
+    border-radius: .25rem;
+    resize: none;
+    border: .2rem solid #ccc;
+    padding: .4rem .6rem;
+}
+
+.newTodoInputSubmit {
+    font-weight: 700;
+    font-size: 1rem;
+    border: 0 solid white;
 }
